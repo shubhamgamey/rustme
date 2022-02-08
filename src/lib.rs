@@ -6,9 +6,15 @@ async fn greet(req: HttpRequest) -> impl Responder {
     let name = req.match_info().get("name").unwrap_or("Hello");
     format!("Hellow {}!", &name)
 }
-async fn health() -> impl Responder {
+async fn health() -> HttpResponse {
     HttpResponse::Ok().finish()
 }
+
+async fn subscribe() -> HttpResponse {
+    HttpResponse:: Ok().finish()
+    }
+
+
 // #[tokio::main]
 pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
     let server = HttpServer::new(|| {
@@ -16,8 +22,10 @@ pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
             .route("/", web::get().to(greet))
             .route("/greet/{name}", web::get().to(greet))
             .route("/health_check", web::get().to(health))
+            .route("/subscriptions", web::post().to(subscribe))
     })
     .listen(listener)?
     .run();
     Ok(server)
 }
+
