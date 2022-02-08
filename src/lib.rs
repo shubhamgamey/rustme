@@ -11,9 +11,8 @@ async fn health() -> HttpResponse {
 }
 
 async fn subscribe() -> HttpResponse {
-    HttpResponse:: Ok().finish()
-    }
-
+    HttpResponse::Ok().finish()
+}
 
 // #[tokio::main]
 pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
@@ -28,4 +27,3 @@ pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
     .run();
     Ok(server)
 }
-
